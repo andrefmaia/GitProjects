@@ -1,5 +1,3 @@
-package br.com.rpires.list;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +41,7 @@ public class ExemploArrayList {
         lista.add("João da Silva");
         lista.add("Antonio Sousa");
         lista.add("Lúcia Ferreira");
-        Collections.sort(lista);
+        //Collections.sort(lista); #ORDENAR A COLEÇÃO DE LISTAS
         System.out.println(lista);
         System.out.println("");
     }
