@@ -1,0 +1,20 @@
+Design e Implementação de Data Warehouses
+Modelo Lógico x Modelo Dimensional
+
+
+
+Modelo Lógico 					| Modelo Dimensional
+------------------------------------------------+-----------------------------------------
+Um diagrama para vários processos 		| Vários diagramas, sendo um para cada
+de negócio					| processo de negócio
+------------------------------------------------+-----------------------------------------
+Usuários acham difícil entender e navegar pelo	| Usuários reconhecem seus processos no
+modelo, pois é uma ferramenta técnica		| modelo, pois é uma ferramenta de negócio
+------------------------------------------------+-----------------------------------------
+Muitas junções para responder a consultas 	| Poucas junções
+------------------------------------------------------------------------------------------
+Dados atômicos 					| Dados atômicos e agregados
+------------------------------------------------+-----------------------------------------
+Planos de consulta extremamente distintos e	| Planos de consulta genéricos
+específicos para as consultas previstas 	|
+-------------------------------------------------------------------------------------------

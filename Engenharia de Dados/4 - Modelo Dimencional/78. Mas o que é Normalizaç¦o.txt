@@ -1,0 +1,118 @@
+Design e Implementação de Data Warehouses
+Mas o que é Normalização?
+
+
+O Que é Normalização?
+
+	A normalização do banco de dados é o processo de transformações na estrutura de um
+banco de dados que visa a eliminar redundâncias e a eliminar anomalias de inserção,
+atualização e exclusão.
+
+	Ao efetuar o processo de normalização, os dados cadastrados no banco de dados ficarão
+organizados de uma forma melhor e ocuparão menos espaço físico. Entretanto, o processo de
+normalização também faz aumentar o número de tabelas e em muitos casos pode ser uma
+tarefa difícil de ser realizada. Além disso, bancos de dados normalizados além do necessário
+podem ter desempenho ruim e/ou complexidade excessiva.
+
+	A principal finalidade do processo de normalização é eliminar as anomalias de inserção,
+atualização e exclusão. A anomalia ocorre quando não há forma de se cadastrar alguma
+determinada informação sem que alguma outra informação também seja diretamente
+cadastrada. Por exemplo, imagine que você tenha uma tabela funcionário com os seguintes
+dados: codigo, nome, projeto; onde a tabela projeto corresponde ao nome do projeto no qual
+um funcionário foi alocado.
+
+	codigo		nome		projeto
+	1		Pedro		Vendas
+	2		Maria		Vendas
+	3		Carlos		Cadastro de Clientes
+
+	E então surgiu um projeto novo, o de emissão de notas fiscais. Como você cadastra esse
+novo projeto? A resposta é que não dá para cadastrar, pois para fazer isso você teria que ter
+algum funcionário nesse projeto - ou seja, temos uma anomalia de inserção.
+
+	Se no exemplo anterior, o funcionário Carlos fosse desligado da empresa e o
+removermos da tabela, a informação sobre o projeto de cadastro de clientes é perdida. Isso é
+um efeito colateral indesejado - é a anomalia de exclusão. Se, no entanto, ele apenas fosse
+remanejado para o novo projeto de notas fiscais, nós também perderíamos a informação sobre
+a existência do projeto de cadastro de clientes - essa é a anomalia de alteração.
+
+	O problema que origina essas anomalias é o fato de a informação do projeto estar toda
+dentro da tabela de funcionários, que não é o lugar dela. Se tivermos duas tabelas relacionadas
+(1-para-N) - funcionários e projetos - as anomalias desaparecem. Anomalias também têm
+relação com o conceito de integridade referencial.
+
+
+Integridade Referencial
+
+	Integridade referencial é um conceito relacionado a chaves estrangeiras. Este conceito
+diz que o valor que é chave estrangeira em uma tabela destino, deve ser chave primária de
+algum registro na tabela origem. Quando essa regra é desrespeitada, então temos o caso em
+que a integridade referencial é violada.
+
+	Vejamos a terminologia: Integridade vem de íntegro, inteiro, completo, correto.
+Referencial vem de referência, indicar algo ou alguém. Portanto, integridade referencial é
+indicar algo ou alguém de forma íntegra, completa, correta. Por exemplo, veja essas duas
+tabelas:
+
+	Carros
+	Placa (PK)	| Modelo	| Proprietário (FK)
+	----------------+---------------+------------------
+	ABC-1233	| Passat	| 1
+	DEF-4566	| Fiesta	| 2
+	UVV-7890	| Palio		| 1
+
+	Proprietários
+	ID (PK)	| Nome
+	--------+------
+	1	| Pedro
+	2	| Maria
+
+	Estas tabelas têm integridade referencial, pois os carros que têm proprietário com ID 1,
+podem ser encontrados na tabela de proprietários como sendo do Pedro. O carro de
+proprietário com ID 2 pode ser encontrado como sendo da Maria.
+
+	Agora, imagine que nós venhamos inserir um carro de placa EJB-6520, do modelo Civic e
+do proprietário com o ID 3. Ocorre que não há nenhum proprietário de ID 3. Se o banco de
+dados permitir essa inclusão, ocorrerá uma violação da integridade referencial, pois estará
+sendo feita uma referência a uma entidade inexistente. O mesmo ocorreria se quisermos
+alterar o proprietário de um dos carros colocando o ID do proprietário como 3.
+
+	Por outro lado, se nós quisermos deletar a Maria do banco de dados sem deletar o carro
+de placa DEF-4566 e nem alterá-lo, novamente teremos uma violação da integridade
+referencial, pois se o banco de dados permitir que essa exclusão seja feita, a integridade
+referencial será violada ao termos um carro que tem como dono, uma entidade agora
+inexistente.
+
+	A maioria dos bancos de dados relacionais modernos existentes impõe integridade
+referencial quando você tenta inserir, alterar ou excluir entidades no qual há chaves
+estrangeiras envolvidas. Se uma violação de integridade ocorrer, o seu banco de dados
+apresentará registros inconsistentes que apontam para entidades que não existem, o que
+tende a se manifestar nas aplicações sob a forma de vários tipos de problemas.
+
+
+Formas Normais
+
+	Normalização de dados é um conjunto de regras aplicadas a tabelas de banco de dados
+relacionais a fim de manter a consistência dos dados, evitar duplicações/redundância e
+problemas com remoções ou atualizações de registros.
+
+	As formas normais são 1FN, 2FN, 3FN, BCNF, 4FN e 5FN. As tabelas geralmente são
+normalizadas até a terceira forma, a quarta e quinta formas normais tratam de problemas
+específicos. Vejamos aqui as 3 primeiras formas normais.
+
+	Antes de prosseguir com as formas normais, faz-se necessário introduzir os conceitos de
+chaves candidatas e superchaves.
+
+	A chave primária é aquele conjunto de colunas que serve para identificar a tupla de uma
+forma única (pode ser só uma coluna, ou podem ser duas ou mais). É importante que o
+projetista do banco de dados saiba identificar quais são as colunas mais apropriadas para serem
+eleitas como parte da chave primária.
+
+	Entretanto, às vezes há mais do que um conjunto de colunas que poderia ser chave
+primária. Cada um desses conjuntos é chamado de chave candidata. Por exemplo, em uma
+tabela Pessoa que tenha os campos CPF, RG, Estado e Nome, tanto o CPF quanto o RG junto
+com o Estado são chaves candidatas. Assim, é possível chegar-se ao Nome a partir do CPF, mas
+também é possível chegar-se ao Nome a partir do RG e do Estado.
+
+	Qualquer conjunto de colunas que tenha como subconjunto, uma chave candidata é
+denominado de superchave.
