@@ -1,0 +1,12 @@
+{
+  "name": "modulo01",
+  "version": "1",
+  "description": "modulo01",
+  "main": "index.js",
+  "repository": ".",
+  "author": "andreMaia",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
