@@ -1,69 +1,56 @@
 /*----------1º IMPORTAR O REACT E OS PACOTES DO REACT e useState--------------*/
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, FlatList} from 'react-native';
+import {Picker} from '@react-native-community/picker';
 
-
+/*PRECISA INSTALAR NO SERVER LOCAL
+npm install @react-native-picker/picker
+*/
 
 export default function App(){
- 
+  const [carroSelecionado, setCarroSelecionado] = useState(0);
   
   return(
 
-    /*<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>*/
-    <View style={styles.container}>
-     
+      <View style={styles.container}>
+
+
+
+
+
+        <Picker 
+        selectedValue={carroSelecionado}
+        onValueChange={(itemValue, itemIndex) => setCarroSelecionado(itemValue)}
+      >
+        <Picker.item key={0} value={0} label='Golf 1.6'/>
+        <Picker.item key={1} value={1} label='Saveiro 1.6'/>
+        <Picker.item key={2} value={2} label='Gol 2.0'/>
+
       
+      </Picker>
       
-      <ScrollView>
-          <View style={styles.box1}></View>
-          <View style={styles.box2}></View>
-          <View style={styles.box3}></View>
-          <View style={styles.box4}></View>
-          <View style={styles.box2}></View>
+      </View>
 
-
-      </ScrollView>
-
-
-
-    </View>
+   
+      
+   
 
   )
 }
 
 /*----------CREADOR DE ESTILOS--------------*/
 const styles = StyleSheet.create({
-
 container:{
   flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#FFF'
+  backgroundColor: '#fff',
+  marginBottom: 50,
 },
 
-box1: {
-  height: 250,
-  backgroundColor: 'red'
-},
 
-box2: {
-  height: 250,
-  backgroundColor: 'green'
-},
 
-box3: {
-  height: 250,
-  backgroundColor: 'yellow'
-},
+});
 
-box4: {
- 
-  height: 250,
-  backgroundColor: 'blue'
-},
 
-  
-})
 
 //export default App;
 
