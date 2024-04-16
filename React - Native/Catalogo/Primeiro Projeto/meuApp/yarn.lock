@@ -1851,6 +1851,11 @@
     "prompts" "^2.4.2"
     "semver" "^7.5.2"
 
+"@react-native-community/slider@^4.5.1":
+  "integrity" "sha512-s3PChKU3tj/7i3z+VjxeO6n9YkoCg2omW9EYmN66bFjqsi4/aynX/nbPbFun1K97Zz8/eP5dl9YTeS0l2sLmNA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/slider/-/slider-4.5.1.tgz"
+  "version" "4.5.1"
+
 "@react-native-picker/picker@^2.4.0", "@react-native-picker/picker@^2.7.5":
   "integrity" "sha512-vhMaOLkXSUb+YKVbukMJToU4g+89VMhBG2U9+cLYF8X8HtFRidrHjohGqT8/OyesDuKIXeLIP+UFYI9Q9CRA9Q=="
   "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.7.5.tgz"
