@@ -1,63 +1,71 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,TextInput,Switch, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack'
 
 export default function App() {
   const [status, setStatus] = useState(false);
-
+  const Stack = createStackNavigator();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.cabecalho}>
-      
-      <Switch 
-      style = {styles.swtFornecedor}
-      value = {status}
-      onValueChange={ (valorSelecionado) => setStatus(valorSelecionado)}
-      trackColor={{ false: '#A9A9A9', true: '#00FF00'}}
-      thumbColor={'#000080'}
-      />
+          <View style={styles.container}>
+          
+          <View style={styles.bodyCorpo}>
+                    <View style={styles.logoTop}>
+                    <Image 
+                    source={require('./src/img/logo.png')}
+                    style={styles.logo}
+                    />
+                
+                    </View>
 
-      <Text style={styles.txtFornecedor}>Fornecedor?</Text>
-      
+              <TextInput style={styles.inputUser}
+              placeholder='Nome de Usuário'
+              /*----------PEGANDO O TEXTO DIGITADO--------------*/
+              //onChangeText={ () => {}}
+              />
 
-      </View>
+              <TextInput style={styles.inputUser}
+              placeholder='Digite sua senha'
+              /*----------PEGANDO O TEXTO DIGITADO--------------*/
+              //onChangeText={ () => {}}
+              />
 
-      <View style={styles.bodyCorpo}>
-                <View style={styles.logoTop}>
-                <Image 
-                source={require('./src/img/logo.png')}
-                style={styles.logo}
+              
+              <TouchableOpacity style={styles.btnLogin}>
+                <FontAwesome 
+                name='user'
+                size={30}
+                color='#fff'
                 />
-             
-                </View>
+                <Text style={styles.btnText}>Login</Text>
+              </TouchableOpacity>
 
-          <TextInput style={styles.inputUser}
-          placeholder='Nome de Usuário'
-          /*----------PEGANDO O TEXTO DIGITADO--------------*/
-          //onChangeText={ () => {}}
-          />
+              <Text style={styles.btnCadastro}>Crie sua conta Aqui!</Text>
+              <Text style={styles.btnEsqueceuSenha}>Esqueceu a Senha?</Text>
+          </View>
 
-          <TextInput style={styles.inputUser}
-          placeholder='Digite sua senha'
-          /*----------PEGANDO O TEXTO DIGITADO--------------*/
-          //onChangeText={ () => {}}
+
+          <View style={styles.cabecalho}>
+          
+          <Text style={styles.txtFornecedor}>Fornecedor?</Text>
+          
+          <Switch 
+          style = {styles.swtFornecedor}
+          value = {status}
+          onValueChange={ (valorSelecionado) => setStatus(valorSelecionado)}
+          trackColor={{ false: '#A9A9A9', true: '#00FF00'}}
+          thumbColor={'#000080'}
           />
 
           
-          <TouchableOpacity style={styles.btnLogin}>
-            <FontAwesome 
-            name='user'
-            size={30}
-            color='#fff'
-            />
-            <Text style={styles.btnText}>Login</Text>
-          </TouchableOpacity>
+          
 
-          <Text style={styles.btnEsqueceuSenha}>Esqueceu a Senha?</Text>
-      </View>
-    </View>
+          </View>
+        </View>
+
+   
   );
 }
 
@@ -71,7 +79,8 @@ const styles = StyleSheet.create({
 
   cabecalho: {
     flexDirection: 'row',
-    backgroundColor: '#F0F8FF'
+    backgroundColor: '#F0F8FF',
+    height: 70
 
   },
 
@@ -81,13 +90,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     padding: 10,
-    marginTop: 40
+    marginTop: 10
   },
 
   swtFornecedor: {
     padding: 5,
     marginLeft: 5,
-    marginTop: 40
+    marginTop: 10
   },
 
   bodyCorpo:{
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
   },
 
   logoTop: {
-    marginTop: -180,
+    marginTop: 20,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center'
@@ -135,9 +144,16 @@ const styles = StyleSheet.create({
 
   },
 
+  btnCadastro: {
+    paddingLeft: 20,
+    color: '#11118c',
+    fontSize: 20,
+  },
+
   btnEsqueceuSenha: {
     paddingLeft: 20,
     color: '#11118c',
     fontSize: 20,
-  }
+  },
+
 });
