@@ -3,13 +3,22 @@ import { StyleSheet, Text, View, TouchableOpacity,Switch, Image, ScrollView } fr
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native';
 import logo from  '../img/logo.png'
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PaperProvider } from 'react-native-paper';
 
 import { Button, Avatar, TextInput } from 'react-native-paper';
 
+//---------import de paginas
+import HomeCliente from './HomeClientes';
+
+
 export default function Login() {
   const [status, setStatus] = useState(false);
-  const Stack = createStackNavigator();
+  
+  
 
   //---------CONSTRUÇÃO DO TEXTINPUT USUARIO
   const TxtUsuario = () => {
@@ -34,11 +43,8 @@ export default function Login() {
     return (
       <TextInput
         mode="outlined"
-        label="Senha"
-        
+        label="Senha" 
         placeholder="Digite sua senha"
-
-        
         right={<TextInput.Icon icon="eye" />}
       />
     );
@@ -50,10 +56,22 @@ export default function Login() {
         <Button icon="login"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => console.log('Pressed')}>Login
-          
-        </Button>
+            onPress={goHomeCliente}>Login
+         </Button>
       );
+
+      //---------FUNCTION PARA IR PARA O HOMECLIENTE
+      /*const Stack = createNativeStackNavigator();
+      <Stack.Navigator>
+                <Stack.Screen name="Home Cliente" component={HomeCliente} />
+            </Stack.Navigator>*/
+
+      const navigation = useNavigation();
+      function goHomeCliente(){
+        
+            navigation.navigate('HomeCliente')
+        
+      }
 
   return (
       
