@@ -2,7 +2,6 @@ import { TextInput } from 'react-native-paper'
 import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, ScrollViewComponent } from 'react-native'
 import { useState } from 'react'
 import { Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 
 const data = ['ID:','NOME:', 'CPF:', 'TELEFONE', 'EMAIL', 'PLACA DO VEICULO']
 
@@ -19,12 +18,11 @@ const Cliente = () => {
         </Button>
       );
 
-      const navigation = useNavigation();
       const AddCancelar = () => (
         <Button icon="cancel"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={ () => navigation.goBack()}>Cancelar
+            onPress={() => console.log('Pressed')}>Salvar
           
         </Button>
       );

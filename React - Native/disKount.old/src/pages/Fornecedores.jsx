@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Button, Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
+//---------import de paginas
+import Login from './Login';
 
 const data = ['ID:','NOME:', 'CNPJ:', 'TELEFONE', 'EMAIL', 'PONTOS: ', 'DESCONTO:',  'Google Maps:']
 

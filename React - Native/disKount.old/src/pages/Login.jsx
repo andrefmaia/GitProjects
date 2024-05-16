@@ -12,7 +12,11 @@ import { PaperProvider } from 'react-native-paper';
 
 import { Button, Avatar, TextInput } from 'react-native-paper';
 
+//---------import de paginas
 
+import Clientes from "./Clientes";
+import Fornecedores from "./Fornecedores";
+import HomeClientes from "./HomeClientes";
 
 
 export default function Login() {
@@ -30,7 +34,7 @@ export default function Login() {
         label="Nome de Usuário"
        
         placeholder="Digite seu usuário"
-        //right={<TextInput.Icon icon= "walk" />}
+        right={<TextInput.Icon icon= "walk" />}
       />
     );
   };
@@ -45,7 +49,7 @@ export default function Login() {
         mode="outlined"
         label="Senha" 
         placeholder="Digite sua senha"
-        //right={<TextInput.Icon icon="eye" />}
+        right={<TextInput.Icon icon="eye" />}
       />
     );
   };
@@ -59,7 +63,7 @@ export default function Login() {
         <Button icon="login"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={ () => navigation.navigate('HomeFornecedores')}>Login
+            onPress={ () => navigation.navigate('Fornecedor')}>Login
          </Button>
       );
 

@@ -3,9 +3,7 @@ import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, S
 import { useState } from 'react'
 import { Button, Avatar, Card } from 'react-native-paper';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+
 
 const data = ['ID:','NOME:', 'CPF:', 'TELEFONE', 'EMAIL', 'PLACA DO VEICULO']
 
@@ -13,18 +11,16 @@ const data = ['ID:','NOME:', 'CPF:', 'TELEFONE', 'EMAIL', 'PLACA DO VEICULO']
 const HomeCliente = () => {
     const [form, setform] = useState({})
 
-
-    const navigation = useNavigation();
-    const AddMeusDados = () => (
+    const AddSalvar = () => (
         <Button icon="book-open"   
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => navigation.navigate('Cliente')}>Meus Dados
+            onPress={() => console.log('Pressed')}>Meus Dados
           
         </Button>
       );
 
-      const AddEmpresas = () => (
+      const AddCancelar = () => (
         <Button icon="cog"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
@@ -46,8 +42,8 @@ const HomeCliente = () => {
             <MeuAvatar />
             </View>
             
-            <AddMeusDados/>
-            <AddEmpresas/>
+            <AddSalvar/>
+            <AddCancelar/>
             
             
             <View style={{marginTop: 20}}>
