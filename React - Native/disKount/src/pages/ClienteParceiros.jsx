@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput, Avatar, DataTable, List, MD3Colors } from 'react-native-paper'
-import { View,TouchableOpacity, StyleSheet, Icon, ScrollView, ScrollViewComponent } from 'react-native'
+import { View,TouchableOpacity, StyleSheet, Icon, ScrollView, ScrollViewComponent, FlatList, Image } from 'react-native'
 import { useState } from 'react'
 import { Button, Text,Card, Searchbar, IconButton} from 'react-native-paper';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -17,14 +17,7 @@ const CliParceiros = () => {
       
     
 
-        const AddCapPontos = () => (
-        <Button icon="file"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="outlined" 
-            size={20}
-            onPress={() => navigation.navigate('')}>Abrir
-        </Button>
-      );
+       
 
       const MyPesquisar = () => {
         const [searchQuery, setSearchQuery] = React.useState('');
@@ -39,28 +32,81 @@ const CliParceiros = () => {
         );
       };
 
+      /* ---- CONSTRUÇÃO DO DATA TABLE----------->*/
+      const [feed, setFeed] = useState([
+          {id: '1',nome: 'Posto Shell', desconto: 5, pontos: 5, logo: ''},
+          {id: '2',nome: 'Rocha Auto Center', desconto: 5, pontos: 10, logo: ''},
+          {id: '3',nome: 'Arnóbio Car', desconto: 5, pontos: 10, mapa: '',logo: ''},
+          {id: '4',nome: 'Kolares Eletricar', desconto: 5, pontos: 10, logo: ''},
+          {id: '5',nome: 'Lava Jato Elite Car', desconto: 5, pontos: 15, logo: ''}
+      ]);
+     
+      
 
-  
-     
-     
+      function Parceiro(props){
+        return(
+          <TouchableOpacity>
+          
+          <View style={styles.viewParceiro}>
+            <View style = {{flex: 0.1, padding: 10}}>
+            <Avatar.Image size={25}  source={require('../img/avatar.png')} />
+            </View>
+
+            <View style ={{flex: 1}}>
+            <Image source={props.data.logo}/>
+            <Text style={styles.textParceiro}>{props.data.nome}</Text>
+            <Text>Pontos: {props.data.pontos}</Text>
+            <Text>Desconto: {props.data.desconto}%</Text>
+            </View>
+          </View>
+          </TouchableOpacity>
+        );
+      }
+
+      const styles = StyleSheet.create({
+        textParceiro: {
+          fontSize: 20,
+          fontWeight: 'bold'
+        },
+
+        viewParceiro: {
+          height: 'auto', 
+          marginBottom: 1, 
+          padding: 10,
+          borderRadius: 15,
+          flexDirection: 'row',
+          borderBottomWidth: 1,
+          borderBottomColor: '#dcd6d6'
+          
+        }
+
+      })
+    
 
  
-
+    /* ---- FIM DO DATA TABLE----------->*/
     return (
-        <ScrollView>
+        
         <View style={{ flex: 1, padding: 16, marginTop: 10 }}>
-                        
-              
+        
         <MyPesquisar/>
- 
-        <AddCapPontos/>
+
+        <View style = {{alignItems: 'center'}}>
+        <Text>Clique no parceiro para ir Maps</Text>
+        </View>
+        <FlatList 
+        showsVerticalScrollIndicator={false}
+        data = {feed}
+        renderItem={ ({ item }) => <Parceiro data={item}/>}
+        style = {{marginTop: 10}}
+        />
+      
             
             
         </View>
-        </ScrollView>
     )
 }
 
-
+ 
 
 export default CliParceiros

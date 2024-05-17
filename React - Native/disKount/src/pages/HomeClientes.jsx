@@ -1,5 +1,4 @@
-import { TextInput } from 'react-native-paper'
-import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, ScrollViewComponent } from 'react-native'
+import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, ScrollViewComponent, Image } from 'react-native'
 import { useState } from 'react'
 import { Button, Avatar, Card } from 'react-native-paper';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -34,7 +33,12 @@ const HomeCliente = () => {
       );
 
       const MeuAvatar = () => (
-        <Avatar.Image size={150}  source={require('../img/avatar.png')} />
+        <Image
+        style = {{width: 200,
+          height: 200,}}
+        source={require('../img/qrcode-cliente.png')}
+      />
+       // <Avatar.Image size={150}  source={require('../img/avatar.png')} />
       );
 
     console.log(form)
@@ -56,7 +60,7 @@ const HomeCliente = () => {
             <Text style={{fontSize: 20, alignItems: 'center' }}>Pontos Acumulados:</Text>
             </Card.Content>
             <Card.Content style={{padding: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: 150, fontWeight: 'bold'}}>35</Text>
+            <Text style={{fontSize: 120, fontWeight: 'bold'}}>35</Text>
             </Card.Content>
             </Card>
             </View>

@@ -90,7 +90,7 @@ const App = () => {
           name="ClienteParceiros" 
           component={ClienteParceiros}
           options={{
-            title: 'ClienteParceiros'
+            title: 'Parceiros'
           }}
            />  
           
