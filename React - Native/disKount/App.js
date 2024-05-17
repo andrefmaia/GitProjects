@@ -14,6 +14,7 @@ import HomeClientes from "./src/pages/HomeClientes";
 import HomeFornecedores from "./src/pages/HomeFornecedores";
 import ValidarCliente from "./src/pages/ValidarCliente";
 import CapturarPontos from './src/pages/CapturarPontos';
+import HistoricoValid from './src/pages/HistoricoValid';
 
 const App = () => {
   return (
@@ -74,7 +75,15 @@ const App = () => {
           options={{
             title: 'Capturar Pontos'
           }}
-           />       
+           />    
+
+           <Stack.Screen 
+          name="HistoricoValid" 
+          component={HistoricoValid}
+          options={{
+            title: 'Historico de Validação'
+          }}
+           />     
         
           
           

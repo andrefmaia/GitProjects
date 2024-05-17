@@ -24,7 +24,7 @@ const HomeFornecedor = () => {
         <Button icon="text"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => navigation.navigate('Fornecedores')}>Histórico de Clientes
+            onPress={() => navigation.navigate('HistoricoValid')}>Histórico de Clientes
           
         </Button>
       );
