@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-//import { createNativeStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PaperProvider } from 'react-native-paper';
 
@@ -13,6 +12,8 @@ import Clientes from "./src/pages/Clientes";
 import Fornecedores from "./src/pages/Fornecedores";
 import HomeClientes from "./src/pages/HomeClientes";
 import HomeFornecedores from "./src/pages/HomeFornecedores";
+import ValidarCliente from "./src/pages/ValidarCliente";
+import CapturarPontos from './src/pages/CapturarPontos';
 
 const App = () => {
   return (
@@ -58,6 +59,22 @@ const App = () => {
             title: 'HomeFornecedores'
           }}
            />
+
+          <Stack.Screen 
+          name="ValidarCliente" 
+          component={ValidarCliente}
+          options={{
+            title: 'Validar Cliente'
+          }}
+           />
+
+          <Stack.Screen 
+          name="CapturarPontos" 
+          component={CapturarPontos}
+          options={{
+            title: 'Capturar Pontos'
+          }}
+           />       
         
           
           

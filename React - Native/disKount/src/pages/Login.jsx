@@ -47,10 +47,10 @@ export default function Login() {
         placeholder="Digite sua senha"
         //right={<TextInput.Icon icon="eye" />}
       />
-    );
-  };
+        );
+    };
 
-  //---------CONSTRUÇÃO DO BOTAO LOGIN
+   //---------CONSTRUÇÃO DO BOTAO LOGIN
         const {navigate} = useNavigation();
         const My = createNativeStackNavigator();
         const navigation = useNavigation();

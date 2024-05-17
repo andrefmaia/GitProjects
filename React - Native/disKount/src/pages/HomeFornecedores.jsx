@@ -9,9 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 
 const HomeFornecedor = () => {
     const [form, setform] = useState({})
-
-
     const navigation = useNavigation();
+
     const AddMeusDados = () => (
         <Button icon="book-open"   
             style={{padding: 10, marginTop: 16, }} 
@@ -25,7 +24,7 @@ const HomeFornecedor = () => {
         <Button icon="text"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => console.log('Pressed')}>Histórico de Clientes
+            onPress={() => navigation.navigate('Fornecedores')}>Histórico de Clientes
           
         </Button>
       );
@@ -34,7 +33,7 @@ const HomeFornecedor = () => {
         <Button icon="qrcode"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => console.log('Pressed')}>Validar Cliente
+            onPress={() => navigation.navigate('ValidarCliente')}>Validar Cliente
           
         </Button>
       );
@@ -43,7 +42,7 @@ const HomeFornecedor = () => {
         <Button icon="cog"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => console.log('Pressed')}>Capturar Pontos
+            onPress={() => navigation.navigate('CapturarPontos')}>Capturar Pontos
           
         </Button>
       );
@@ -52,7 +51,7 @@ const HomeFornecedor = () => {
         <Avatar.Image size={150}  source={require('../img/avatar.png')} />
       );
 
-    console.log(form)
+   
 
     return (
         <ScrollView>
