@@ -28,7 +28,7 @@ const HomeCliente = () => {
         <Button icon="cog"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={() => console.log('Pressed')}>Empresas Parceiras
+            onPress={() => navigation.navigate('ClienteParceiros')}>Empresas Parceiras
           
         </Button>
       );

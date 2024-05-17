@@ -76,7 +76,6 @@ const ValidCliente = () => {
 
             <MyPesquisar/>
               <Card.Content style = {{marginTop: 15}}>
-              
 
                   <Text variant="titleMedium">ID:XXXX</Text>
                   <Text variant="titleMedium">CLIENTE:XXXXXXXXXXXXXXXXX</Text>

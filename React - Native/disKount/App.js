@@ -15,6 +15,7 @@ import HomeFornecedores from "./src/pages/HomeFornecedores";
 import ValidarCliente from "./src/pages/ValidarCliente";
 import CapturarPontos from './src/pages/CapturarPontos';
 import HistoricoValid from './src/pages/HistoricoValid';
+import ClienteParceiros from './src/pages/ClienteParceiros'
 
 const App = () => {
   return (
@@ -85,6 +86,13 @@ const App = () => {
           }}
            />     
         
+        <Stack.Screen 
+          name="ClienteParceiros" 
+          component={ClienteParceiros}
+          options={{
+            title: 'ClienteParceiros'
+          }}
+           />  
           
           
         </Stack.Navigator>

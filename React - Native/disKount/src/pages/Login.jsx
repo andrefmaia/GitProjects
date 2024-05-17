@@ -59,7 +59,7 @@ export default function Login() {
         <Button icon="login"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={ () => navigation.navigate('HomeFornecedores')}>Login
+            onPress={ () => navigation.navigate('HomeClientes')}>Login
          </Button>
       );
 
