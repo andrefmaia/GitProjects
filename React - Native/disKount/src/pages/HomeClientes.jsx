@@ -1,6 +1,6 @@
 import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, ScrollViewComponent, Image } from 'react-native'
 import { useState } from 'react'
-import { Button, Avatar, Card } from 'react-native-paper';
+import { Button, Avatar, Card, Title } from 'react-native-paper';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,11 +9,16 @@ import { useNavigation } from '@react-navigation/native';
 const data = ['ID:','NOME:', 'CPF:', 'TELEFONE', 'EMAIL', 'PLACA DO VEICULO']
 
 
-const HomeCliente = () => {
+const HomeCliente = ( { route }) => {
     const [form, setform] = useState({})
 
 
     const navigation = useNavigation();
+    
+    /*navigation.setOptions ({
+      title: `Olá ${route.params?.nome}`
+    })*/
+
     const AddMeusDados = () => (
         <Button icon="book-open"   
             style={{padding: 10, marginTop: 16, }} 
@@ -47,6 +52,7 @@ const HomeCliente = () => {
         <ScrollView>
         <View style={{ flex: 1, padding: 16, marginTop: 10 }}>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Text> {route.params?.nome} </Text>
             <MeuAvatar />
             </View>
             

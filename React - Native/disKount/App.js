@@ -17,7 +17,7 @@ import CapturarPontos from './src/pages/CapturarPontos';
 import HistoricoValid from './src/pages/HistoricoValid';
 import ClienteParceiros from './src/pages/ClienteParceiros'
 
-const App = () => {
+const App = ( ) => {
   return (
   
 
@@ -35,7 +35,8 @@ const App = () => {
           name="HomeClientes" 
           component={HomeClientes}
           options={{
-            title: '<Cliente>'
+            
+            title: `Home`
           }}/>
 
           <Stack.Screen 
@@ -50,7 +51,7 @@ const App = () => {
           name="Fornecedores" 
           component={Fornecedores}
           options={{
-            title: 'Fornecedores'
+            title: 'Meus Dados'
           }}
            />
           
@@ -58,7 +59,7 @@ const App = () => {
           name="HomeFornecedores" 
           component={HomeFornecedores}
           options={{
-            title: 'HomeFornecedores'
+            title: 'Parceiros'
           }}
            />
 

@@ -18,8 +18,8 @@ import { Button, Avatar, TextInput } from 'react-native-paper';
 export default function Login() {
   const [status, setStatus] = useState(false);
   
-  
-
+  //---------FUNÇÃO DO OBJETO COM NOME
+ 
   //---------CONSTRUÇÃO DO TEXTINPUT USUARIO
   const TxtUsuario = () => {
     const [text, setText] = React.useState('');
@@ -56,10 +56,19 @@ export default function Login() {
         const navigation = useNavigation();
 
       const BtnLogin = () => (
+        
         <Button icon="login"  
             style={{padding: 10, marginTop: 16, }} 
             mode="contained" 
-            onPress={ () => navigation.navigate('HomeClientes')}>Login
+            onPress={ () => navigation.navigate('HomeClientes', {nome: 'André Feitosa Maia'})}>Login
+         </Button>
+      );
+
+      const BtnLoginParceiros = () => (
+        <Button icon="login"  
+            style={{padding: 10, marginTop: 16, }} 
+            mode="contained" 
+            onPress={ () => navigation.navigate('HomeFornecedores')}>Login
          </Button>
       );
 
@@ -102,7 +111,9 @@ export default function Login() {
               <View>
               <TxtUsuario style={{alignItems: 'center', marginTop: 20}}/>
               <TxtSenha style={{alignItems: 'center', marginTop: 20}} />
-              <BtnLogin/>
+
+              {status ? <BtnLoginParceiros/>: <BtnLogin/> }
+              
               <Text style={styles.btnCadastro}>Crie sua conta Aqui!</Text>
               <Text style={styles.btnCadastro}>Esqueceu a Senha?</Text>
               </View>
@@ -117,20 +128,23 @@ export default function Login() {
 
           <View style={styles.cabecalho}>
           
-          <Text style={styles.txtFornecedor}>Fornecedor?</Text>
+          <Text style={styles.txtFornecedor}>Fornecedor? {status ? 'SIM' : 'NÃO'}</Text>
           
           <Switch 
           style = {styles.swtFornecedor}
           value = {status}
           onValueChange={ (valorSelecionado) => setStatus(valorSelecionado)}
           trackColor={{ false: '#A9A9A9', true: '#00FF00'}}
-          thumbColor={'#000080'}
+          thumbColor={status ? '#000080': '#e8e8e8'}
           />
 
           
           
+          
 
           </View>
+
+          
         
         </View>
         
