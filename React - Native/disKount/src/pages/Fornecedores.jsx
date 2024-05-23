@@ -5,7 +5,7 @@ import { Button, Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 
-const data = ['ID:','NOME:', 'CNPJ:', 'TELEFONE', 'EMAIL', 'PONTOS: ', 'DESCONTO:',  'Google Maps:']
+const data = ['ID:','NOME:', 'CNPJ:', 'ENDEREÇO COMPLETO', 'CEP','TELEFONE', 'EMAIL', 'PONTOS: ', 'DESCONTO:',  'Google Maps:']
 
 
 const Fornecedor = () => {
@@ -36,7 +36,9 @@ const Fornecedor = () => {
       );
 
       const MeuLogo = () => (
+        <TouchableOpacity>
         <Avatar.Image size={150}  source={require('../img/avatar.png')} />
+        </TouchableOpacity>
       );
 
     return (

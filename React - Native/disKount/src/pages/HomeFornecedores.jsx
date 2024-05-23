@@ -47,6 +47,15 @@ const HomeFornecedor = () => {
         </Button>
       );
 
+      const AddLogout = () => (
+        <Button icon="logout"  
+            style={{padding: 10, marginTop: 16, backgroundColor: '#d00e0e' }} 
+            mode="contained" 
+            onPress={() => navigation.navigate('Login')}>Sair da Conta
+          
+        </Button>
+      );
+
       const MeuAvatar = () => (
         <Avatar.Image size={150}  source={require('../img/avatar.png')} />
       );
@@ -55,7 +64,7 @@ const HomeFornecedor = () => {
 
     return (
         <ScrollView>
-        <View style={{ flex: 1, padding: 16, marginTop: 10 }}>
+        <View style={{ flex: 1, padding: 16, marginTop: 100 }}>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <MeuAvatar />
             </View>
@@ -64,6 +73,7 @@ const HomeFornecedor = () => {
             <AddHistorico/>
             <AddValidCli/>
             <AddCapPontos/>
+            <AddLogout/>
             
             
         </View>

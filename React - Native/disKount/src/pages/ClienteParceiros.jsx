@@ -34,18 +34,18 @@ const CliParceiros = () => {
 
       /* ---- CONSTRUÇÃO DO DATA TABLE----------->*/
       const [feed, setFeed] = useState([
-          {id: '1',nome: 'Posto Shell', desconto: 5, pontos: 5, logo: ''},
-          {id: '2',nome: 'Rocha Auto Center', desconto: 5, pontos: 10, logo: ''},
-          {id: '3',nome: 'Arnóbio Car', desconto: 5, pontos: 10, mapa: '',logo: ''},
-          {id: '4',nome: 'Kolares Eletricar', desconto: 5, pontos: 10, logo: ''},
-          {id: '5',nome: 'Lava Jato Elite Car', desconto: 5, pontos: 15, logo: ''}
+          {id: '1',nome: 'Posto Shell', telefone: '(85)98805.8910', endereco: 'Rua consel vieira da silva, 555 - Parquelandia', desconto: 5, pontos: 5, logo: ''},
+          {id: '2',nome: 'Rocha Auto Center',telefone: '(85)98805.8910', endereco: 'Rua consel vieira da silva, 555 - Parquelandia', desconto: 5, pontos: 10, logo: ''},
+          {id: '3',nome: 'Arnóbio Car', telefone: '(85)98805.8910', endereco: 'Rua consel vieira da silva, 555 - Parquelandia',desconto: 5, pontos: 10, mapa: '',logo: ''},
+          {id: '4',nome: 'Kolares Eletricar', telefone: '(85)98805.8910', endereco: 'Rua consel vieira da silva, 555 - Parquelandia',desconto: 5, pontos: 10, logo: ''},
+          {id: '5',nome: 'Lava Jato Elite Car', telefone: '(85)98805.8910', endereco: 'Rua consel vieira da silva, 555 - Parquelandia', desconto: 5, pontos: 15, logo: ''}
       ]);
      
       
 
       function Parceiro(props){
         return(
-          <TouchableOpacity>
+          
           
           <View style={styles.viewParceiro}>
             <View style = {{flex: 0.1, padding: 10}}>
@@ -55,11 +55,17 @@ const CliParceiros = () => {
             <View style ={{flex: 1}}>
             <Image source={props.data.logo}/>
             <Text style={styles.textParceiro}>{props.data.nome}</Text>
+            <Text style={styles.textParceiro}>{props.data.telefone}</Text>
+
+            <TouchableOpacity >
+            <Text style ={{color: 'blue', fontStyle: 'italic', fontSize: 18,}}>Endereço: {props.data.endereco}</Text>
+            </TouchableOpacity>
+
             <Text>Pontos: {props.data.pontos}</Text>
             <Text>Desconto: {props.data.desconto}%</Text>
             </View>
           </View>
-          </TouchableOpacity>
+          
         );
       }
 

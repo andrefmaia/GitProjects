@@ -5,6 +5,7 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import QRCode from 'react-native-qrcode-svg'
 
 const data = ['ID:','NOME:', 'CPF:', 'TELEFONE', 'EMAIL', 'PLACA DO VEICULO']
 
@@ -37,23 +38,29 @@ const HomeCliente = ( { route }) => {
         </Button>
       );
 
-      const MeuAvatar = () => (
-        <Image
-        style = {{width: 200,
-          height: 200,}}
-        source={require('../img/qrcode-cliente.png')}
-      />
-       // <Avatar.Image size={150}  source={require('../img/avatar.png')} />
+      const AddLogout = () => (
+        <Button icon="logout"  
+            style={{padding: 10, marginTop: 16, backgroundColor: '#d00e0e' }} 
+            mode="contained" 
+            onPress={() => navigation.navigate('Login')}>Sair da Conta
+          
+        </Button>
       );
+
+      
 
     console.log(form)
 
     return (
         <ScrollView>
-        <View style={{ flex: 1, padding: 16, marginTop: 10 }}>
+        <View style={{ flex: 1, padding: 16, marginTop: 100 }}>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <Text> {route.params?.nome} </Text>
-            <MeuAvatar />
+           
+            <QRCode
+                style = {{width: 500, height: 500}}
+                value={route.params?.nome}
+              />
             </View>
             
             <AddMeusDados/>
@@ -71,7 +78,7 @@ const HomeCliente = ( { route }) => {
             </Card>
             </View>
             
-            
+            <AddLogout/>
         </View>
         </ScrollView>
     )

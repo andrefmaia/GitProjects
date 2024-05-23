@@ -4,7 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PaperProvider } from 'react-native-paper';
 
+
 const Stack = createNativeStackNavigator();
+
 
 // importa as telas
 import Login from "./src/pages/Login";
@@ -31,12 +33,14 @@ const App = ( ) => {
             headerShown: false,
           }}/>
 
+
+         
           <Stack.Screen 
           name="HomeClientes" 
           component={HomeClientes}
           options={{
+            headerShown: false
             
-            title: `Home`
           }}/>
 
           <Stack.Screen 
@@ -59,7 +63,8 @@ const App = ( ) => {
           name="HomeFornecedores" 
           component={HomeFornecedores}
           options={{
-            title: 'Parceiros'
+            headerShown: false
+
           }}
            />
 
