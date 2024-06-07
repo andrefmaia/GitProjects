@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ScrollView, StyleSheet, Alert } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./../firebaseConnection";
 
-
-const ClienteEdit = () => {
+const ClienteEdit = ({ route }) => {
   const [form, setForm] = useState({
     id: "",
     nome: "",
@@ -18,15 +17,44 @@ const ClienteEdit = () => {
     senha: "",
   });
   const navigation = useNavigation();
+  const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
 
-//----->>>> ERRROOOO! PRECISA BUSCAR O CLIENTE PARA FAZER A EDIÇÃO DOS DADOS
+  useEffect(() => {
+    async function fetchCliente() {
+      if (userId) {
+        try {
+          const docRef = doc(db, "Cliente", userId);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setForm(data); // Define o estado do formulário com os dados do Firestore
+          } else {
+            Alert.alert("Nenhum documento encontrado para o usuário atual.");
+          }
+        } catch (error) {
+          Alert.alert("Erro ao buscar registro:", error.message);
+        }
+      } else {
+        Alert.alert("ID do usuário não fornecido.");
+      }
+    }
+
+    fetchCliente(); // Chama a função para buscar o cliente quando o componente é montado
+  }, [userId]);
+
   const handleSave = async () => {
-    try {
-      await updateDoc(collection(db, "Cliente"), form.id);
-      Alert.alert("Cliente editado com sucesso!", form.nome);
-      navigation.goBack();
-    } catch (error) {
-      Alert.error("Erro ao adicionar cliente: ", error);
+    if (userId) {
+      try {
+        const docRef = doc(db, "Cliente", userId);
+        await updateDoc(docRef, form); // Atualiza os dados do cliente no Firestore
+        Alert.alert("Registro atualizado com sucesso!");
+        navigation.goBack(); // Volta para a tela anterior
+      } catch (error) {
+        Alert.alert("Erro ao atualizar registro:", error.message);
+      }
+    } else {
+      Alert.alert("ID do usuário não fornecido.");
     }
   };
 
@@ -55,7 +83,7 @@ const ClienteEdit = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-      <TextInput
+        <TextInput
           label="USUÁRIO"
           placeholder="Digite seu usuário"
           value={form.usuario}
@@ -103,7 +131,6 @@ const ClienteEdit = () => {
           keyboardType="email-address"
           style={styles.input}
           autoCapitalize="none"
-
         />
         <TextInput
           label="PLACA DO VEÍCULO"
@@ -113,8 +140,7 @@ const ClienteEdit = () => {
           style={styles.input}
           autoCapitalize="characters"
         />
-        
-        
+
         <AddSalvar />
         <AddCancelar />
       </View>

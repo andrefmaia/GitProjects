@@ -9,11 +9,10 @@ import QRCode from "react-native-qrcode-svg";
 const HomeCliente = ({ route }) => {
   const [pontos, setPontos] = useState(''); // Estado para armazenar o valor dos pontos
   const navigation = useNavigation();
+  const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
 
   useEffect(() => {
     async function fetchPontos() {
-      const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
-
       if (userId) {
         try {
           const docRef = doc(db, "Cliente", userId);
@@ -38,7 +37,7 @@ const HomeCliente = ({ route }) => {
     }
 
     fetchPontos(); // Chama a função para buscar os pontos quando o componente é montado
-  }, [route.params?.userId]);
+  }, [userId]);
 
   return (
     <ScrollView>
@@ -57,7 +56,7 @@ const HomeCliente = ({ route }) => {
           icon="book-open"
           style={{ padding: 10, marginTop: 16 }}
           mode="contained"
-          onPress={() => navigation.navigate("ClientesEdit")}
+          onPress={() => navigation.navigate("ClientesEdit", { userId })}
         >
           Meus Dados
         </Button>
