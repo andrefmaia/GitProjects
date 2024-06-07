@@ -1,207 +1,268 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Switch,
+  Image,
+  ScrollView,
+  Alert
+} from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+import logo from "../img/logo.png";
 
-import { StyleSheet, Text, View, TouchableOpacity,Switch, Image, ScrollView } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import logo from  '../img/logo.png'
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { PaperProvider } from "react-native-paper";
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PaperProvider } from 'react-native-paper';
+import { Button, Avatar, TextInput } from "react-native-paper";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { db } from "./../firebaseConnection";
 
-import { Button, Avatar, TextInput } from 'react-native-paper';
+//---------CONSTRUÇÃO DO TEXTINPUT USUARIO
+const TxtUsuario = ({ value, onChangeText }) => {
+  return (
+    <TextInput
+      mode="outlined"
+      label="Nome de Usuário"
+      placeholder="Digite seu usuário"
+      value={value}
+      onChangeText={onChangeText}
+      style={styles.input}
+    />
+  );
+};
 
-
-
+//---------CONSTRUÇÃO DOTEXT INPUT SENHA
+const TxtSenha = ({ value, onChangeText }) => {
+  return (
+    <TextInput
+      mode="outlined"
+      label="Senha"
+      placeholder="Digite sua senha"
+      value={value}
+      onChangeText={onChangeText}
+      secureTextEntry
+      style={styles.input}
+    />
+  );
+};
 
 export default function Login() {
-  const [status, setStatus] = useState(false);
-  
-  //---------FUNÇÃO DO OBJETO COM NOME
- 
-  //---------CONSTRUÇÃO DO TEXTINPUT USUARIO
-  const TxtUsuario = () => {
-    const [text, setText] = React.useState('');
-   
-    return (
-      <TextInput
-        mode="outlined"
-        label="Nome de Usuário"
-       
-        placeholder="Digite seu usuário"
-        //right={<TextInput.Icon icon= "walk" />}
-      />
-    );
+  const [status, setStatus] = useState(false); // Estado para o switch
+  const [usuario, setUsuario] = useState(""); // Estado para o usuário
+  const [senha, setSenha] = useState(""); // Estado para a senha
+  const navigation = useNavigation(); // Obtém a instância de navegação
+
+  const handleLogin = async () => {
+    try {
+      if (status) {
+        const q = query(
+          collection(db, "fornecedores"),
+          where("usuario", "==", usuario),
+          where("senha", "==", senha)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+            navigation.navigate("HomeFornecedores", { nome: doc.data().nome });
+          });
+        } else {
+          Alert.alert("Usuário ou senha incorretos");
+        }
+      } else {
+        const q = query(
+          collection(db, "Cliente"),
+          where("usuario", "==", usuario),
+          where("senha", "==", senha)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+            navigation.navigate("HomeClientes", { nome: doc.data().nome });
+          });
+        } else {
+          Alert.alert("Usuário ou senha incorretos");
+        }
+      }
+    } catch (error) {
+      Alert.error("Erro ao fazer login: ", error);
+    }
   };
 
-  //---------CONSTRUÇÃO DOTEXT INPUT SENHA
+  //---------CONSTRUÇÃO DO BOTAO LOGIN
+  const BtnLogin = () => (
+    <Button
+      icon="login"
+      style={styles.button}
+      mode="contained"
+      onPress={handleLogin}
+      // onPress={() =>
+      //   navigation.navigate('HomeClientes', { nome: 'André Feitosa Maia' })
+      // }
+    >
+      Login
+    </Button>
+  );
 
-  const TxtSenha = () => {
-    const [text, setText] = React.useState('');
-   
-    return (
-      <TextInput
-        mode="outlined"
-        label="Senha" 
-        placeholder="Digite sua senha"
-        //right={<TextInput.Icon icon="eye" />}
-      />
-        );
-    };
+  const BtnLoginParceiros = () => (
+    <Button
+      icon="login"
+      style={{ padding: 10, marginTop: 16 }}
+      mode="contained"
+      //onPress={() => navigation.navigate("HomeFornecedores")}
+      onPress={handleLogin}
+    >
+      Login
+    </Button>
+  );
 
-   //---------CONSTRUÇÃO DO BOTAO LOGIN
-        const {navigate} = useNavigation();
-        const My = createNativeStackNavigator();
-        const navigation = useNavigation();
 
-      const BtnLogin = () => (
-        
-        <Button icon="login"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={ () => navigation.navigate('HomeClientes', {nome: 'André Feitosa Maia'})}>Login
-         </Button>
-      );
 
-      const BtnLoginParceiros = () => (
-        <Button icon="login"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={ () => navigation.navigate('HomeFornecedores')}>Login
-         </Button>
-      );
 
-      //---------FUNCTION PARA IR PARA O HOMECLIENTE
-      /*function goHomeClientes(){
+  // Função para lidar com o clique em "Esqueceu a Senha?"
+  const handleEsqueceuSenha = () => {
+    navigation.navigate("Fornecedores"); // Substitua 'EsqueceuSenha' pelo nome da sua tela
+  };
 
-        navigation.navigate('HomeClientes')
-         -----------TENTATIVAS PARA ACESSO DA PAGINA HOMECLIENTES
-        <My.Navigator>
-        <My.Screen name="Home Cliente" component={HomeClientes} />
-        
-        <My.Screen name="Fornecedores" component={Fornecedores} />
-        <My.Screen name="Clientes" component={Clientes} />
-        <My.Screen name="Login" component={Login} />
-        </My.Navigator>
-        
-      }
-*/
-      
+  // Função para lidar com o clique em "Crie sua conta Aqui!"
+  const handleCriarConta = () => {
+    if (status) {
+      navigation.navigate("Fornecedores"); // Substitua 'Fornecedor' pelo nome da sua tela
+    } else {
+      navigation.navigate("Clientes"); // Substitua 'Cliente' pelo nome da sua tela
+    }
+  };
 
   return (
-      
-          <View style={{flex: 1,
-            backgroundColor: '#fff',
-            justifyContent: 'center',
-            padding: 10
-            }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        padding: 10,
+      }}
+    >
+      <View style={styles.logoTop}>
+        <Image source={logo} style={styles.logo} />
+      </View>
 
-          
-              
-                    <View style={styles.logoTop}>
-                    <Image 
-                    source={logo}
-                    style={styles.logo}
-                    />
-                
-                    </View>
+      <View>
+        <TxtUsuario value={usuario} onChangeText={setUsuario} />
+        <TxtSenha value={senha} onChangeText={setSenha} />
 
-                 
-              <View>
-              <TxtUsuario style={{alignItems: 'center', marginTop: 20}}/>
-              <TxtSenha style={{alignItems: 'center', marginTop: 20}} />
+        {status ? <BtnLoginParceiros /> : <BtnLogin />}
 
-              {status ? <BtnLoginParceiros/>: <BtnLogin/> }
-              
-              <Text style={styles.btnCadastro}>Crie sua conta Aqui!</Text>
-              <Text style={styles.btnCadastro}>Esqueceu a Senha?</Text>
-              </View>
+        <View style={styles.btnContainer}>
+          <TouchableOpacity
+            onPress={handleCriarConta}
+            style={styles.btnCadastro}
+          >
+            <Text style={styles.btnCadastro}>Crie sua conta Aqui!</Text>
+          </TouchableOpacity>
 
-              
-              
-                         
-              
-          
-
-       
-
-          <View style={styles.cabecalho}>
-          
-          <Text style={styles.txtFornecedor}>Fornecedor? {status ? 'SIM' : 'NÃO'}</Text>
-          
-          <Switch 
-          style = {styles.swtFornecedor}
-          value = {status}
-          onValueChange={ (valorSelecionado) => setStatus(valorSelecionado)}
-          trackColor={{ false: '#A9A9A9', true: '#00FF00'}}
-          thumbColor={status ? '#000080': '#e8e8e8'}
-          />
-
-          
-          
-          
-
-          </View>
-
-          
-        
+          <TouchableOpacity
+            onPress={handleEsqueceuSenha}
+            style={styles.btnCadastro}
+          >
+            <Text style={styles.btnCadastro}>Esqueceu a Senha?</Text>
+          </TouchableOpacity>
         </View>
-        
-   
+      </View>
+
+      <View style={styles.cabecalho}>
+        <Text style={styles.txtFornecedor}>
+          Fornecedor? {status ? "SIM" : "NÃO"}
+        </Text>
+
+        <Switch
+          style={styles.swtFornecedor}
+          value={status}
+          onValueChange={(valorSelecionado) => setStatus(valorSelecionado)}
+          trackColor={{ false: "#A9A9A9", true: "#00FF00" }}
+          thumbColor={status ? "#000080" : "#e8e8e8"}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cabecalho: {
-    flexDirection: 'row',
-    backgroundColor: '#F0F8FF',
-    height: 70,
-    marginTop: 20
+  container: {
+    flex: 1,
+    padding: 16,
+    justifyContent: "center",
   },
 
-  txtFornecedor:{
-    paddingLeft: 20,
-    color: '#11118c',
-    fontSize: 25,
-    fontWeight: 'bold',
+  input: {
+    marginTop: 16,
+  },
+
+  button: {
     padding: 10,
-    marginTop: 10
+    marginTop: 16,
+  },
+
+  cabecalho: {
+    flexDirection: "row",
+    backgroundColor: "#F0F8FF",
+    height: 70,
+    marginTop: 20,
+  },
+
+  txtFornecedor: {
+    paddingLeft: 20,
+    color: "#11118c",
+    fontSize: 25,
+    fontWeight: "bold",
+    padding: 10,
+    marginTop: 10,
   },
 
   swtFornecedor: {
     padding: 5,
     marginLeft: 5,
-    marginTop: 10
+    marginTop: 10,
   },
 
-   logoTop: {
+  logoTop: {
     marginTop: 20,
     marginBottom: 20,
     padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
-
+    justifyContent: "center",
+    alignItems: "center",
   },
-  
-
-  
 
   btnText: {
     paddingLeft: 20,
-    color: '#fff',
+    color: "#fff",
     fontSize: 25,
-    fontWeight: 'bold',
-
+    fontWeight: "bold",
   },
 
   btnCadastro: {
-    paddingLeft: 20,
-    marginTop: 10,
-    
-    color: '#11118c',
+    paddingLeft: 4,
+    marginTop: 5,
+    color: "#11118c",
     fontSize: 20,
+    // Alinhamento à esquerda
+    textAlign: "left",
   },
 
- 
+  btnContainer: {
+    alignItems: "center", // Centraliza os botões horizontalmente
+  },
 });

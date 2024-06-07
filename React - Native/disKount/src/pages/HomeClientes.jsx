@@ -1,89 +1,100 @@
-import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, ScrollViewComponent, Image } from 'react-native'
-import { useState } from 'react'
-import { Button, Avatar, Card, Title } from 'react-native-paper';
-import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import QRCode from 'react-native-qrcode-svg'
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView, Alert } from "react-native";
+import { Button, Card } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./../firebaseConnection";
+import QRCode from "react-native-qrcode-svg";
 
-const data = ['ID:','NOME:', 'CPF:', 'TELEFONE', 'EMAIL', 'PLACA DO VEICULO']
+const HomeCliente = ({ route }) => {
+  const [pontos, setPontos] = useState(''); // Estado para armazenar o valor dos pontos
+  const navigation = useNavigation();
 
+  useEffect(() => {
+    async function fetchPontos() {
+      const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
 
-const HomeCliente = ( { route }) => {
-    const [form, setform] = useState({})
+      if (userId) {
+        try {
+          const docRef = doc(db, "Cliente", userId);
+          const docSnap = await getDoc(docRef);
 
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.pontos !== undefined) {
+              setPontos(data.pontos); // Define o valor dos pontos no estado
+            } else {
+              Alert.alert("Campo 'pontos' não encontrado.");
+            }
+          } else {
+            Alert.alert("Nenhum documento encontrado para o usuário atual.");
+          }
+        } catch (error) {
+          Alert.alert("Erro ao buscar pontos:", error.message);
+        }
+      } else {
+        Alert.alert("ID do usuário não fornecido.");
+      }
+    }
 
-    const navigation = useNavigation();
-    
-    /*navigation.setOptions ({
-      title: `Olá ${route.params?.nome}`
-    })*/
+    fetchPontos(); // Chama a função para buscar os pontos quando o componente é montado
+  }, [route.params?.userId]);
 
-    const AddMeusDados = () => (
-        <Button icon="book-open"   
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('Cliente')}>Meus Dados
+  return (
+    <ScrollView>
+      <View style={{ flex: 1, padding: 16, marginTop: 50 }}>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Text> {route.params?.nome} </Text>
           
-        </Button>
-      );
-
-      const AddEmpresas = () => (
-        <Button icon="cog"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('ClienteParceiros')}>Empresas Parceiras
-          
-        </Button>
-      );
-
-      const AddLogout = () => (
-        <Button icon="logout"  
-            style={{padding: 10, marginTop: 16, backgroundColor: '#d00e0e' }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('Login')}>Sair da Conta
-          
-        </Button>
-      );
-
-      
-
-    console.log(form)
-
-    return (
-        <ScrollView>
-        <View style={{ flex: 1, padding: 16, marginTop: 100 }}>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text> {route.params?.nome} </Text>
-           
-            <QRCode
-                style = {{width: 500, height: 500}}
-                value={route.params?.nome}
-              />
-            </View>
-            
-            <AddMeusDados/>
-            <AddEmpresas/>
-            
-            
-            <View style={{marginTop: 20}}>
-            <Card >
-            <Card.Content style={{ padding: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: 20, alignItems: 'center' }}>Pontos Acumulados:</Text>
-            </Card.Content>
-            <Card.Content style={{padding: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: 120, fontWeight: 'bold'}}>35</Text>
-            </Card.Content>
-            </Card>
-            </View>
-            
-            <AddLogout/>
+          <QRCode
+            style={{ width: 500, height: 500 }}
+            value={route.params?.nome}
+          />
         </View>
-        </ScrollView>
-    )
-}
 
+        {/* Adicionei os botões */}
+        <Button
+          icon="book-open"
+          style={{ padding: 10, marginTop: 16 }}
+          mode="contained"
+          onPress={() => navigation.navigate("ClientesEdit")}
+        >
+          Meus Dados
+        </Button>
+        <Button
+          icon="cog"
+          style={{ padding: 10, marginTop: 16 }}
+          mode="contained"
+          onPress={() => navigation.navigate("ClienteParceiros")}
+        >
+          Empresas Parceiras
+        </Button>
+        <View style={{ marginTop: 20 }}>
+          <Card>
+            <Card.Content style={{ padding: 5, alignItems: "center" }}>
+              <Text style={{ fontSize: 20, alignItems: "center" }}>
+                Pontos Acumulados:
+              </Text>
+            </Card.Content>
+            <Card.Content style={{ padding: 5, alignItems: "center" }}>
+              <Text style={{ fontSize: 120, fontWeight: "bold" }}>
+                {pontos}
+              </Text>    
+            </Card.Content>
+          </Card>
+        </View>
 
+        <Button
+          icon="logout"
+          style={{ padding: 10, marginTop: 16, backgroundColor: "#d00e0e" }}
+          mode="contained"
+          onPress={() => navigation.navigate("Login")}
+        >
+          Sair da Conta
+        </Button>
+      </View>
+    </ScrollView>
+  );
+};
 
-export default HomeCliente
+export default HomeCliente;

@@ -3,6 +3,8 @@ import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PaperProvider } from 'react-native-paper';
+import { db } from './src/firebaseConnection';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +20,8 @@ import ValidarCliente from "./src/pages/ValidarCliente";
 import CapturarPontos from './src/pages/CapturarPontos';
 import HistoricoValid from './src/pages/HistoricoValid';
 import ClienteParceiros from './src/pages/ClienteParceiros'
+import ClientesEdit from './src/pages/ClientesEdit';
+
 
 const App = ( ) => {
   return (
@@ -44,7 +48,7 @@ const App = ( ) => {
           }}/>
 
           <Stack.Screen 
-          name="Cliente" 
+          name="Clientes" 
           component={Clientes}
           options={{
             title: 'Meus Dados'
@@ -99,6 +103,14 @@ const App = ( ) => {
             title: 'Parceiros'
           }}
            />  
+
+          <Stack.Screen 
+          name="ClientesEdit" 
+          component={ClientesEdit}
+          options={{
+            title: 'Editar Meus Dados'
+          }}
+           /> 
           
           
         </Stack.Navigator>

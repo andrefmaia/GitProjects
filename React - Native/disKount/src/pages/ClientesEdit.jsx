@@ -6,7 +6,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "./../firebaseConnection";
 
 
-const Cliente = () => {
+const ClienteEdit = () => {
   const [form, setForm] = useState({
     id: "",
     nome: "",
@@ -16,17 +16,17 @@ const Cliente = () => {
     placaVeiculo: "",
     usuario: "",
     senha: "",
-    pontos: 0
   });
   const navigation = useNavigation();
 
+//----->>>> ERRROOOO! PRECISA BUSCAR O CLIENTE PARA FAZER A EDIÇÃO DOS DADOS
   const handleSave = async () => {
     try {
-      await addDoc(collection(db, "Cliente"), form);
-      Alert.alert("Cliente adicionado com sucesso!");
+      await updateDoc(collection(db, "Cliente"), form.id);
+      Alert.alert("Cliente editado com sucesso!", form.nome);
       navigation.goBack();
     } catch (error) {
-      Alert.alert("Erro ao adicionar cliente: ", error);
+      Alert.error("Erro ao adicionar cliente: ", error);
     }
   };
 
@@ -55,14 +55,6 @@ const Cliente = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-      <TextInput
-          label="ID"
-          keyboardType="numeric"
-          placeholder="ID do cliente"
-          value={form.cid}
-          onChangeText={(text) => setForm({ ...form, id: text })}
-          style={styles.input}
-        />
       <TextInput
           label="USUÁRIO"
           placeholder="Digite seu usuário"
@@ -147,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cliente;
+export default ClienteEdit;
