@@ -69,16 +69,16 @@ const HomeCliente = ({ route }) => {
         >
           Empresas Parceiras
         </Button>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 20, alignItems: "center" }}>
           <Card>
             <Card.Content style={{ padding: 5, alignItems: "center" }}>
               <Text style={{ fontSize: 20, alignItems: "center" }}>
                 Pontos Acumulados:
               </Text>
             </Card.Content>
-            <Card.Content style={{ padding: 5, alignItems: "center" }}>
-              <Text style={{ fontSize: 120, fontWeight: "bold" }}>
-                {pontos}
+            <Card.Content style={{ padding: 5, alignItems: "center", alignContent:"center" }}>
+              <Text style={{ fontSize: 120, fontWeight: "bold"}}>
+                {pontos} {route.params?.setPontos}
               </Text>    
             </Card.Content>
           </Card>

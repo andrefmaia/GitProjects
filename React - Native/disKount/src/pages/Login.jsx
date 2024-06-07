@@ -6,27 +6,13 @@ import {
   TouchableOpacity,
   Switch,
   Image,
-  ScrollView,
-  Alert
+  Alert,
 } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome5";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-import logo from "../img/logo.png";
-
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { PaperProvider } from "react-native-paper";
-
-import { Button, Avatar, TextInput } from "react-native-paper";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { Button, TextInput } from "react-native-paper";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "./../firebaseConnection";
+import logo from "../img/logo.png";
 
 //---------CONSTRUÇÃO DO TEXTINPUT USUARIO
 const TxtUsuario = ({ value, onChangeText }) => {
@@ -42,7 +28,7 @@ const TxtUsuario = ({ value, onChangeText }) => {
   );
 };
 
-//---------CONSTRUÇÃO DOTEXT INPUT SENHA
+//---------CONSTRUÇÃO DO TEXT INPUT SENHA
 const TxtSenha = ({ value, onChangeText }) => {
   return (
     <TextInput
@@ -92,27 +78,28 @@ export default function Login() {
         if (!querySnapshot.empty) {
           querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-            navigation.navigate("HomeClientes", { nome: doc.data().nome });
+            // Navegar para HomeClientes com o nome e o document ID
+            navigation.navigate("HomeClientes", {
+              nome: doc.data().nome,
+              userId: doc.id, // Passa o Document ID como userId
+            });
           });
         } else {
           Alert.alert("Usuário ou senha incorretos");
         }
       }
     } catch (error) {
-      Alert.error("Erro ao fazer login: ", error);
+      Alert.alert("Erro ao fazer login: ", error.message);
     }
   };
 
-  //---------CONSTRUÇÃO DO BOTAO LOGIN
+  //---------CONSTRUÇÃO DO BOTÃO LOGIN
   const BtnLogin = () => (
     <Button
       icon="login"
       style={styles.button}
       mode="contained"
       onPress={handleLogin}
-      // onPress={() =>
-      //   navigation.navigate('HomeClientes', { nome: 'André Feitosa Maia' })
-      // }
     >
       Login
     </Button>
@@ -123,15 +110,11 @@ export default function Login() {
       icon="login"
       style={{ padding: 10, marginTop: 16 }}
       mode="contained"
-      //onPress={() => navigation.navigate("HomeFornecedores")}
       onPress={handleLogin}
     >
       Login
     </Button>
   );
-
-
-
 
   // Função para lidar com o clique em "Esqueceu a Senha?"
   const handleEsqueceuSenha = () => {
