@@ -1,86 +1,93 @@
-import { TextInput } from 'react-native-paper'
-import { View,TouchableOpacity, Text, StyleSheet, Icon, MD3Colors, ScrollView, ScrollViewComponent } from 'react-native'
-import { useState } from 'react'
-import { Button, Avatar, Card } from 'react-native-paper';
-import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { useState, useEffect, } from 'react';
+import { View, ScrollView, Text, Alert } from 'react-native';
+import { Button, Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-const HomeFornecedor = () => {
-    const [form, setform] = useState({})
-    const navigation = useNavigation();
+const HomeFornecedor = ({ route }) => {
+  const navigation = useNavigation();
+  const [pontos, setPontos] = useState(''); // Estado para armazenar o valor da Logo
+  const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
 
-    const AddMeusDados = () => (
-        <Button icon="book-open"   
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('Fornecedores')}>Meus Dados
-          
-        </Button>
-      );
 
-      const AddHistorico = () => (
-        <Button icon="text"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('HistoricoValid')}>Histórico de Clientes
-          
-        </Button>
-      );
+  const AddMeusDados = () => (
+    <Button
+      icon="book-open"
+      style={{ padding: 10, marginTop: 16 }}
+      mode="contained"
+      onPress={() => navigation.navigate('FornecedoresEdit', { userId })}
+    >
+      Meus Dados
+    </Button>
+  );
 
-      const AddValidCli = () => (
-        <Button icon="qrcode"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('ValidarCliente')}>Validar Cliente
-          
-        </Button>
-      );
+  const AddHistorico = () => (
+    <Button
+      icon="text"
+      style={{ padding: 10, marginTop: 16 }}
+      mode="contained"
+      onPress={() => navigation.navigate('HistoricoValid', { userId })}
+    >
+      Histórico de Clientes
+    </Button>
+  );
 
-      const AddCapPontos = () => (
-        <Button icon="cog"  
-            style={{padding: 10, marginTop: 16, }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('CapturarPontos')}>Capturar Pontos
-          
-        </Button>
-      );
+  const AddValidCli = () => (
+    <Button
+      icon="qrcode"
+      style={{ padding: 10, marginTop: 16 }}
+      mode="contained"
+      onPress={() => navigation.navigate('ValidarCliente', { userId })}
+    >
+      Validar Cliente
+    </Button>
+  );
 
-      const AddLogout = () => (
-        <Button icon="logout"  
-            style={{padding: 10, marginTop: 16, backgroundColor: '#d00e0e' }} 
-            mode="contained" 
-            onPress={() => navigation.navigate('Login')}>Sair da Conta
-          
-        </Button>
-      );
+  const AddCapPontos = () => (
+    <Button
+      icon="cog"
+      style={{ padding: 10, marginTop: 16 }}
+      mode="contained"
+      onPress={() => navigation.navigate('CapturarPontos', { userId })}
+    >
+      Capturar Pontos
+    </Button>
+  );
 
-      const MeuAvatar = () => (
-        <Avatar.Image size={150}  source={require('../img/avatar.png')} />
-      );
+  const AddLogout = () => (
+    <Button
+      icon="logout"
+      style={{ padding: 10, marginTop: 16, backgroundColor: '#d00e0e' }}
+      mode="contained"
+      onPress={() => navigation.navigate('Login')}
+    >
+      Sair da Conta
+    </Button>
+  );
 
-   
+  const MeuAvatar = () => (
+    <Avatar.Image size={150} source={require('../img/avatar.png')} />
+  );
 
-    return (
-        <ScrollView>
-        <View style={{ flex: 1, padding: 16, marginTop: 100 }}>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <MeuAvatar />
-            </View>
-            
-            <AddMeusDados/>
-            <AddHistorico/>
-            <AddValidCli/>
-            <AddCapPontos/>
-            <AddLogout/>
-            
-            
+  return (
+    <ScrollView>
+      <View style={{ flex: 1, padding: 16, marginTop: 100 }}>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>
+            {route.params?.nome}
+          </Text>
+        
         </View>
-        </ScrollView>
-    )
-}
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <MeuAvatar />
+        </View>
+        <AddMeusDados />
+        <AddHistorico />
+        <AddValidCli />
+        <AddCapPontos />
+        <AddLogout />
+      </View>
+    </ScrollView>
+  );
+};
 
-
-
-export default HomeFornecedor
+export default HomeFornecedor;

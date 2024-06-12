@@ -30,7 +30,7 @@ const CapPontos = () => {
         const [searchQuery, setSearchQuery] = React.useState('');
         return (
           <Searchbar
-            
+            style={{marginTop: 10, marginBottom: 10}}
             placeholder="Pesquisar"
             onChangeText={setSearchQuery}
             value={searchQuery}
@@ -40,9 +40,15 @@ const CapPontos = () => {
       };
 
      
-      const BtnScanner = () => (
-        <Avatar.Image size={150}  
-        source={require('../img/qrcode.png')} />
+      const AddValidCli = () => (
+        <Button
+          icon="camera"
+          style={{ padding: 10, marginTop: 16, marginBottom: 10, borderRadius: 30}}
+          mode="contained"
+          onPress={() => navigation.navigate('ValidarCliente', { userId })}
+        >
+          Scanear QRCode
+        </Button>
       );
      
 
@@ -64,23 +70,22 @@ const CapPontos = () => {
     return (
         <ScrollView>
         <View style={{ flex: 1, padding: 16, marginTop: 10 }}>
-                        
-              
+             <MyPesquisar/>            
+            <AddValidCli />
 
+           
             
             <Card style={{marginTop: 10,marginBottom: 15,padding: 10}}>
               
-              <View style={{alignItems: 'center', justifyContent: 'center', marginBottom: 15}}>
-            <BtnScanner />  
-            </View>
+            
 
-            <MyPesquisar/>
-              <Card.Content style = {{marginTop: 15}}>
-
-                  <Text variant="titleMedium">ID:XXXX</Text>
-                  <Text variant="titleMedium">CLIENTE:XXXXXXXXXXXXXXXXX</Text>
-                  <Text variant="titleMedium">TELEFONE:XXXXXXXXXXXXXXXXX</Text>
-                  <Text variant="titleMedium">EMAIL:XXXXXXXXXXXXXXXXX</Text>
+            
+              <Card.Content style={{marginBottom: 10,padding: 10}}>
+                  <View style = {{marginTop: 10, padding: 20}}>
+                       <Text variant="titleMedium">ANDRE FEITOSA MAIA</Text>
+                      <Text variant="titleMedium">(85) 98805.8910)</Text>
+                      <Text variant="titleMedium">andrefmaia@hotmail.com</Text>
+                  </View>
                   </Card.Content>
 
                   <Card.Actions>

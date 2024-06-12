@@ -21,6 +21,8 @@ import CapturarPontos from './src/pages/CapturarPontos';
 import HistoricoValid from './src/pages/HistoricoValid';
 import ClienteParceiros from './src/pages/ClienteParceiros'
 import ClientesEdit from './src/pages/ClientesEdit';
+import FornecedorEdit from './src/pages/FornecedoresEdit';
+
 
 
 const App = ( ) => {
@@ -111,8 +113,17 @@ const App = ( ) => {
             title: 'Editar Meus Dados'
           }}
            /> 
-          
-          
+
+          <Stack.Screen 
+          name="FornecedoresEdit" 
+          component={FornecedorEdit}
+          options={{
+            title: 'Editar Meus Dados'
+          }}
+           /> 
+
+
+
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
