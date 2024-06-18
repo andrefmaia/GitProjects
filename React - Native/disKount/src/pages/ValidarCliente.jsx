@@ -75,13 +75,13 @@ const ValidCliente = () => {
         <ScrollView>
         <View style={{ flex: 1, padding: 16, marginTop: 10 }}>
                         
-              <MyPesquisar/>
+              
 
               <View style={{marginBottom: 20}}>
               <AddValidCli />
               </View>
 
-            
+              <MyPesquisar/>
 
             <Card style={{marginTop: 10,marginBottom: 15,padding: 10}}>
                   <View style = {{marginTop: 10, padding: 20}}>

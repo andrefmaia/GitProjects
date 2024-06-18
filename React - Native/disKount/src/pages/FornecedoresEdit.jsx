@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { View, ScrollView, StyleSheet, Alert } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, documentId, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./../firebaseConnection";
 
 const ClienteEdit = ({ route }) => {
+
   const [form, setForm] = useState({
     id: "",
     nome: "",
@@ -20,8 +21,10 @@ const ClienteEdit = ({ route }) => {
   const navigation = useNavigation();
   const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
 
+ 
+
   useEffect(() => {
-    async function fetchFornecedores() {
+    async function fetchFornecedor() {
       if (userId) {
         try {
           const docRef = doc(db, "fornecedores", userId);
@@ -41,13 +44,13 @@ const ClienteEdit = ({ route }) => {
       }
     }
 
-    fetchFornecedores(); // Chama a função para buscar o cliente quando o componente é montado
+    fetchFornecedor(); // Chama a função para buscar o cliente quando o componente é montado
   }, [userId]);
 
   const handleSave = async () => {
     if (userId) {
       try {
-        const docRef = doc(db, "fornecedores", userId);
+        const docRef = doc(db, "fornecedor", userId);
         await updateDoc(docRef, form); // Atualiza os dados do cliente no Firestore
         Alert.alert("Registro atualizado com sucesso!");
         navigation.goBack(); // Volta para a tela anterior
@@ -58,6 +61,8 @@ const ClienteEdit = ({ route }) => {
       Alert.alert("ID do usuário não fornecido.");
     }
   };
+
+
 
   const AddSalvar = () => (
     <Button

@@ -9,8 +9,7 @@ import QRCode from "react-native-qrcode-svg";
 const HomeCliente = ({ route }) => {
   const [pontos, setPontos] = useState(''); // Estado para armazenar o valor dos pontos
   const navigation = useNavigation();
-  const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
-
+  const userId = route.params?.userId; 
   useEffect(() => {
     async function fetchPontos() {
       if (userId) {

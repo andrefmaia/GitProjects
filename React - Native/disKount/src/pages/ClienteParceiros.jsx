@@ -68,8 +68,8 @@ const CliParceiros = () => {
   function Parceiro(props) {
     return (
       <View style={styles.viewParceiro}>
-        <View style={{ flex: 0.1, padding: 10 }}>
-          <Avatar.Image size={25} source={require("../img/avatar.png")} />
+        <View style={{ flex: 0.3, padding: 10 }}>
+          <Avatar.Image size={75} source={require("../img/avatar.png")} />
         </View>
 
         <View style={{ flex: 1 }}>
@@ -107,6 +107,7 @@ const CliParceiros = () => {
       flexDirection: "row",
       borderBottomWidth: 1,
       borderBottomColor: "#dcd6d6",
+      alignItems: "center"
     },
   });
 

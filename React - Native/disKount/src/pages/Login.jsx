@@ -62,7 +62,10 @@ export default function Login() {
         if (!querySnapshot.empty) {
           querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-            navigation.navigate("HomeFornecedores", { nome: doc.data().nome });
+            navigation.navigate("HomeFornecedores", { 
+              nome: doc.data().nome,
+              userId: doc.id, // Passa o Document ID como userId
+              });
           });
         } else {
           Alert.alert("Usuário ou senha incorretos");

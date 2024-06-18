@@ -5,9 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 const HomeFornecedor = ({ route }) => {
   const navigation = useNavigation();
-  const [pontos, setPontos] = useState(''); // Estado para armazenar o valor da Logo
-  const userId = route.params?.userId; // Identificador único do usuário passado por parâmetro
-
+  const [pontos, setPontos] = useState(''); // Estado para armazenar o valor dos pontos
+  const userId = route.params?.userId; 
 
   const AddMeusDados = () => (
     <Button
@@ -79,6 +78,7 @@ const HomeFornecedor = ({ route }) => {
         </View>
         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
           <MeuAvatar />
+          
         </View>
         <AddMeusDados />
         <AddHistorico />
