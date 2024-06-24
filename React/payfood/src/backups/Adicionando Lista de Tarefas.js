@@ -1,39 +1,20 @@
 import Nome from "./Components/Nome";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
 const [input, setInput] = useState('')
 const [tarefas, setTarefas] = useState([
-    'Pagar a conta Nubank',
-    'Estudar React'  
+  'Pagar a conta de Luz',
+  'Estudar React JS'
 ]);
-
-
-useEffect( ()=>{
-  const tarefasStorage = localStorage.getItem('@tarefa');
-
-  if (tarefasStorage){
-    setTarefas(JSON.parse(tarefasStorage))
-  }
-
-  return () => {
-    //desmontar
-  }
-
-}, []);
-
-
-
-useEffect(() =>{
-  localStorage.setItem('@tarefa', JSON.stringify(tarefas) )
-}, [tarefas]);
-
-
 
 function handleRegister(e){
   e.preventDefault();
 
   setTarefas([...tarefas, input]);
+  
+ 
+  alert('Usuário registrado!')
   setInput('');
 };
 
