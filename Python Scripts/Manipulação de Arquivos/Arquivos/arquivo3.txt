@@ -1,2 +1,2 @@
-Este arquivo foi gerado pelo Jupyter Notebook.
-Podemos gerar quantas linhas quisermos e o Jupiter grava no arquivo final.
+Este arquivo foi gerado pelo Jupyter Notebook
+Podemos gerar quantas linhas quisermos e o Jpyter grava no arquivo final.
